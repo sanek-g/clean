@@ -10346,6 +10346,11 @@ if (menuLinks.length > 0) {
 				menuBody.classList.remove('active');
 			}
 
+			clicked = true;
+			setTimeout(() => {
+				clicked = false;
+			}, 1000);
+
 			window.scrollTo({
 				top: gotoBlockValue,
 				behavior: "smooth"
@@ -10355,7 +10360,38 @@ if (menuLinks.length > 0) {
 	}
 }
 
-// Skrollen bei klick 'end'====================================;
+// Skrollen bei klick 'end'====================================
+
+
+const sections = document.querySelectorAll('.section');
+let clicked = false
+window.addEventListener('scroll', scrollDown);
+
+
+function scrollDown() {
+	if (clicked) return;
+
+
+	let current = [];
+	sections.forEach(section => {
+		const sectonTop = section.offsetTop; //offsetTop  //getBoundingClientRect().top
+		const sectionHeight = section.offsetHeight; //offsetHeight   clientHeight
+		if (scrollY >= (sectonTop - screen.height / 2)) { //|| scrollY >= (sectonTop - document.offsetHeight / 2)
+			current = section.className.split(" ");
+		}
+	})
+	// console.log(current);
+	menuLinks.forEach(menuLink => {
+		menuLink.classList.remove('active');
+		current.forEach(cS => {
+			// console.log(cS);
+			if (menuLink.dataset.goto == "." + cS) {
+				menuLink.classList.add('active');
+			}
+		})
+	})
+
+};
 	// // Class ACTIVE zum Menu anfügen Anfang====================================================
 
 	// // const aktuelleLokation = location.href;
