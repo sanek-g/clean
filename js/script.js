@@ -10241,6 +10241,12 @@ for (let i = 0; i < acc.length; i++) {
 		const accordionItemContent = this.nextElementSibling;
 		if (accordionItemContent.style.maxHeight) {
 			accordionItemContent.style.maxHeight = null;
+			accordionItemContent.addEventListener('transitionend',
+				function () {
+					accordionItemContent.classList.remove('active');
+				}, {
+					once: true
+				});
 		} else {
 
 			for (let j = 0; j < acc.length; j++) {
