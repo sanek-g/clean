@@ -18,7 +18,8 @@
 
 <body>
 	<div class="wrapper">
-		<header id="home" class="section">
+		
+		<header class="header section_1">
 			
 			<div class="header__wrapper lock__padding">
 				
@@ -30,18 +31,22 @@
 						<div class="menu__icon">
 							<span></span>
 						</div>
-
 						<nav class="menu__body">
 							<ul class="menu__list">
-								<li class="menu__link home active"><a href="#home">Home</a></li>
-								<li class="menu__link leistungen"><a href="#leistungen">Leistungen</a>
-									<ul class="sub_menu__list">
-										<li class="sub_menu_link industrie"><a href="#industrie">Industriereinigung</a></li>
-										<li class="sub_menu_link unterhalt"><a href="#unterhalt">Unterhaltsreinigung</a></li>
-										
-									</ul>
+								<li><a data-goto=".section_1" class="menu__link active" href="#">
+										<div class="under_link">Home</div>
+									</a></li>
+								<li><a data-goto=".section_2" class="menu__link" href="#">
+										<div class="under_link">Über uns</div>
+									</a>
 								</li>
-								<li class="menu__link contact"><a href="#contact">Kontakt</a></li>
+								<li><a data-goto=".section_3" class="menu__link" href="#">
+										<div class="under_link">Leistungen</div>
+									</a>
+								</li>
+								<li><a data-goto=".section_4" class="menu__link" href="#">
+										<div class="under_link">Kontakt</div>
+									</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -95,15 +100,25 @@
 			</div>
 			
 		</header>
+		
 		<main class="main">
 			
-			<section id="leistungen" class="section">
+			<section class="about section_2">
 				<div class="container">
+					<h2 class="about_title">Über uns</h2>
+					<div class="about_text">
+						<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque dolorum perspiciatis quisquam
+							eaque odio voluptates unde, ad nisi temporibus ratione assumenda libero dicta, cum, rem iste natus
+							minima autem possimus!</p><br>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nulla veritatis aut sunt iure
+							soluta est voluptatibus reiciendis incidunt eligendi accusantium, totam, debitis enim quia officia
+							velit maxime voluptate quo!</p>
+					</div>
 					<div class="service">
-						<h2 class="service_title">Unsere Leistungen im Überblick</h2>
+						<h3 class="service_title">Unsere Leistungen im Überblick</h3>
 						<ul class="service_list anim_items">
-							<li class="service_item"><a href="#industrie">Industriereinigung</a></li>
-							<li class="service_item"><a href="#unterhalt">Unterhaltsreinigung</a></li>
+							<li class="service_item">Industriereinigung</li>
+							<li class="service_item">Unterhaltsreinigung</li>
 							<li class="service_item">Fenster, Glas, Fassadenreinigung</li>
 							<li class="service_item">Trockeneisreinigung</li>
 							<li class="service_item">Bauendreinigung</li>
@@ -121,54 +136,109 @@
 				<div class="parallax_wrap">
 					<div class="parallax"></div>
 				</div>
+
 			</section>
 			
+
 			
-			<section id="content">
+			<section class="content section_3">
 				<div class="container">
-					<div id="industrie" class="content_row sub_section">
-						<div class="content_col img anim_items">
-							<img src="img/2.jpg" alt="">
+					<h2>Leistungen</h2>
+					<article class="content_spoiler">
+						<h3 class="content_title">Industriereinigung</h3>
+						<div class="content_text">
+							<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi dicta, reprehenderit laboriosam,
+								temporibus fugit voluptas quos, aspernatur nobis ipsam dolorem in ad quia molestiae placeat ea
+								expedita ullam cupiditate obcaecati.</p>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, illo ducimus, accusamus ipsam
+								tempore similique esse tenetur dolorem fuga deleniti dolores odit blanditiis quisquam,
+								voluptatum
+								modi facilis accusantium vel alias.</p>
 						</div>
-						<div class="content_col text anim_items">
-							<h2>Industriereinigung</h2>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, laboriosam sunt? Corrupti
-								dolores
-								quos doloribus commodi nostrum fugit ipsam, quo, nulla explicabo sint asperiores nisi unde.
-							</p>
-							<p>
-								Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium esse ducimus earum, qui
-								tempore nihil deleniti recusandae obcaecati doloribus delectus.swefgwegwegwefgwefwef wefwef fwef
-								wefwef wfef wefw ef wef
-							</p>
+					</article>
+					<article class="content_spoiler">
+						<h3 class="content_title">Unterhaltsreinigung</h3>
+						<div class="content_text">
+							<div class="content_text-wr">
+								<p>Unterhaltsreinigung ist einfach in einem bestimmten Zyklus sich wiederholende
+									Reinigungstätigkeiten. Dieser Zyklus kann z. B. täglich, wöchentlich oder monatlich sein. Der
+									Umfang dieser Reinigung wird vorher besprochen und genau festgelegt.</p>
+								<p>Die Unterhaltsreinigung kann bei alle arten von Objekten durchgeführt werden und beinhaltet
+									dabei die Reinigung von
+									Schulen, Kindertagesstätten, Universitäten, Senioren- und Pflegeheimen, Arztpraxen so wie
+									Büroräumen, Geschäftsstellen, Einkaufszentren, Supermärkten aber auch Treppenhäusern oder
+									privaten Haushalten. </p>
+							</div>
 
 						</div>
-					</div>
-
-
-					<div id="unterhalt" class="content_row_2 sub_section">
-						<div class="content_col text_2 anim_items">
-							<h2>Unterhaltsreinigung</h2>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, laboriosam sunt? Corrupti
-								dolores
-								quos doloribus commodi nostrum fugit ipsam, quo, nulla explicabo sint asperiores nisi unde.
-							</p>
-							<p>
-								Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium esse ducimus earum, qui
-								tempore nihil deleniti recusandae obcaecati doloribus delectus.swefgwegwegwefgwefwef wefwef fwef
-								wefwef wfef wefw ef wef
-							</p>
-
+					</article>
+					<article class="content_spoiler">
+						<h3 class="content_title">Fenster, Glas, Fassadenreinigung</h3>
+						<div class="content_text">
+							<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi dicta, reprehenderit laboriosam,
+								temporibus fugit voluptas quos, aspernatur nobis ipsam dolorem in ad quia molestiae placeat ea
+								expedita ullam cupiditate obcaecati.</p>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, illo ducimus, accusamus ipsam
+								tempore similique esse tenetur dolorem fuga deleniti dolores odit blanditiis quisquam,
+								voluptatum
+								modi facilis accusantium vel alias.</p>
 						</div>
-						<div class="content_col img anim_items">
-							<img src="img/2.jpg" alt="">
+					</article>
+					<article class="content_spoiler">
+						<h3 class="content_title">Trockeneisreinigung</h3>
+						<div class="content_text">
+							<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi dicta, reprehenderit laboriosam,
+								temporibus fugit voluptas quos, aspernatur nobis ipsam dolorem in ad quia molestiae placeat ea
+								expedita ullam cupiditate obcaecati.</p>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, illo ducimus, accusamus ipsam
+								tempore similique esse tenetur dolorem fuga deleniti dolores odit blanditiis quisquam,
+								voluptatum
+								modi facilis accusantium vel alias.</p>
 						</div>
-					</div>
+					</article>
+					<article class="content_spoiler">
+						<h3 class="content_title">Bauendreinigung</h3>
+						<div class="content_text">
+							<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi dicta, reprehenderit laboriosam,
+								temporibus fugit voluptas quos, aspernatur nobis ipsam dolorem in ad quia molestiae placeat ea
+								expedita ullam cupiditate obcaecati.</p>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, illo ducimus, accusamus ipsam
+								tempore similique esse tenetur dolorem fuga deleniti dolores odit blanditiis quisquam,
+								voluptatum
+								modi facilis accusantium vel alias.</p>
+						</div>
+					</article>
+					<article class="content_spoiler">
+						<h3 class="content_title">Entrümpelungen und Räumungen</h3>
+						<div class="content_text">
+							<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi dicta, reprehenderit laboriosam,
+								temporibus fugit voluptas quos, aspernatur nobis ipsam dolorem in ad quia molestiae placeat ea
+								expedita ullam cupiditate obcaecati.</p>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, illo ducimus, accusamus ipsam
+								tempore similique esse tenetur dolorem fuga deleniti dolores odit blanditiis quisquam,
+								voluptatum
+								modi facilis accusantium vel alias.</p>
+						</div>
+					</article>
+					<article class="content_spoiler">
+						<h3 class="content_title">Photovoltaik und Solaranlagenreinigung</h3>
+						<div class="content_text">
+							<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi dicta, reprehenderit laboriosam,
+								temporibus fugit voluptas quos, aspernatur nobis ipsam dolorem in ad quia molestiae placeat ea
+								expedita ullam cupiditate obcaecati.</p>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, illo ducimus, accusamus ipsam
+								tempore similique esse tenetur dolorem fuga deleniti dolores odit blanditiis quisquam,
+								voluptatum
+								modi facilis accusantium vel alias.</p>
+						</div>
+					</article>
 				</div>
+
+				
 			</section>
 			
 			
-			<section id="contact" class="section">
+			<section class="contact section_4">
 				<div class="container">
 					<div class="contact_wrapper">
 
