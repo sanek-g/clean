@@ -1303,7 +1303,7 @@ a {
 .content_title::after {
   content: '';
   position: absolute;
-  background: black;
+  background: #30277B;
 }
 
 .content_title::before {
