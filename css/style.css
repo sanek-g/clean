@@ -1290,6 +1290,9 @@ a {
   padding: 5px 35px 5px 5px;
   position: relative;
   cursor: pointer;
+  -webkit-transition: all .25s ease;
+  -o-transition: all .25s ease;
+  transition: all .25s ease;
 }
 
 .content_title.active {
