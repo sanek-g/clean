@@ -10230,7 +10230,7 @@ window.addEventListener('scroll', function () {
 // 		});
 // }
 
-
+// spoiler - accordion start ============================================================================ 
 var acc = document.querySelectorAll(".content_title");
 
 
@@ -10239,6 +10239,7 @@ for (let i = 0; i < acc.length; i++) {
 		event.preventDefault();
 
 		const accordionItemContent = this.nextElementSibling;
+
 		if (accordionItemContent.style.maxHeight) {
 			accordionItemContent.style.maxHeight = null;
 			accordionItemContent.addEventListener('transitionend',
@@ -10260,6 +10261,9 @@ for (let i = 0; i < acc.length; i++) {
 		this.classList.toggle("active");
 	});
 }
+
+
+// spoiler - accordion end ============================================================================ 
 
 
 
