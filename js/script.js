@@ -10067,7 +10067,7 @@
 })));
 //# sourceMappingURL=swiper-bundle.js.map
 
-window.onload = function () {
+window.addEventListener('load', function () {
 	//Slider Anfang =================================================================================
 new Swiper('.header_slider', {
 	// Optional parameters
@@ -10117,7 +10117,7 @@ if (animItems.length > 0) {
 				animItemPoint = window.innerHeight - window.innerHeight / animStart;
 			}
 
-			if ((scrollY > animItemOffset - animItemPoint) && scrollY < (animItemOffset + animItemHeight)) {
+			if ((window.pageYOffset > animItemOffset - animItemPoint) && window.pageYOffset < (animItemOffset + animItemHeight)) {
 				animItem.classList.add('_active');
 			} else {
 				if (!animItem.classList.contains('anim-stop')) {
@@ -10143,18 +10143,17 @@ if (animItems.length > 0) {
 // Animation Ende==========================================================================
 
 
-const serviceList = document.querySelector('.service_list');
+const serviceList = document.querySelector('.about__service__list');
 
 
-
-let zeit = 0;
 let css = document.createElement("style");
 css.id = "mystyles";
 let isOK = false;
-
+let zeit = 0;
 if (serviceList.children.length > 0) {
+
 	for (let i = 1; i <= serviceList.children.length; i++) {
-		css.innerHTML += '.service_list._active li:nth-child(' + i + ') { transition: all 1s ease-out ' + zeit + 's; }';
+		css.innerHTML += '.about__service__list._active li:nth-child(' + i + ') { transition: all 1s ease-out ' + zeit + 's; }';
 		zeit = zeit + 0.5;
 	}
 	isOK = true;
@@ -10164,14 +10163,17 @@ if (isOK) {
 	document.head.appendChild(css)
 };
 
+
 // Parallax start ========================================================================
 
 const parallax = document.querySelector('.parallax');
 
-window.addEventListener('scroll', function () {
-	let offset = window.scrollY;
+window.addEventListener('scroll', parallaxScroll);
+
+function parallaxScroll() {
+	let offset = window.pageYOffset;
 	parallax.style.backgroundPositionY = offset * 0.3 + "px";
-})
+}
 
 // Parallax end ========================================================================
 // menu opasity start ===================================================================
@@ -10181,98 +10183,65 @@ const navHeight = header_nav.offsetHeight;
 const headerHeight = document.querySelector('header').offsetHeight;
 
 header_nav.style.backgroundColor = "rgba(255, 255, 255, 0.3 )";
-window.addEventListener('scroll', function () {
+window.addEventListener('scroll', headerAreaOpasity);
 
-	let offset = 1 - (headerHeight - navHeight - scrollY) / (headerHeight - navHeight) * 0.7;
+function headerAreaOpasity() {
+
+	let opasity = 1 - (headerHeight - navHeight - window.pageYOffset) / (headerHeight - navHeight) * 0.7;
 	// Math.round(offset)
 	// let offsetFixed = offset.toFixed(1);
 	// console.log(offsetFixed);
-	header_nav.style.backgroundColor = "rgba(255, 255, 255, " + offset + ")";
+	header_nav.style.backgroundColor = "rgba(255, 255, 255, " + opasity + ")";
 	// header_nav.style.opacity = 1 - (headerHeight - window.scrollY) / headerHeight * 0.7);
 
 
-})
+}
 
 // menu opasity end ===================================================================
 
-// spoiler start =========================================================================
-// const acc = document.querySelectorAll(".content_title");
-
-
-// for (var i = 0; i < accordionItemTitles.length; i++) {
-// 	accordionItemTitles[i].addEventListener("click",
-// 		function (event) {
-// 			event.preventDefault();
-// 			event.target.classList.toggle("active");
-// 			const accordionItemContent = event.target.nextElementSibling;
-
-// 			if (!accordionItemContent.classList.contains('active')) {
-// 				accordionItemContent.classList.add('active');
-// 				accordionItemContent.style.height = 'auto';
-
-// 				var height = accordionItemContent.clientHeight + 'px';
-
-// 				accordionItemContent.style.height = '0px';
-
-// 				setTimeout(function () {
-// 					accordionItemContent.style.height = height;
-// 				}, 0);
-// 			} else {
-// 				accordionItemContent.style.height = '0px';
-
-// 				accordionItemContent.addEventListener('transitionend',
-// 					function () {
-// 						accordionItemContent.classList.remove('active');
-// 					}, {
-// 						once: true
-// 					});
-// 			}
-// 		});
-// }
-
 // spoiler - accordion start ============================================================================ 
-var acc = document.querySelectorAll(".content_title");
+const serviceSpoilerWrap = document.querySelector(".service__spoiler_wrap");
 
+if (serviceSpoilerWrap) {
+	serviceSpoilerWrap.addEventListener("click", function (e) {
+		if (e.target.classList.contains('content_title')) {
+			e.preventDefault();
 
-for (let i = 0; i < acc.length; i++) {
-	acc[i].addEventListener("click", function (event) {
-		event.preventDefault();
+			const accordionItemContent = e.target.nextElementSibling;
 
-		const accordionItemContent = this.nextElementSibling;
+			if (e.target.classList.contains('active')) {
+				accRemove(accordionItemContent);
+			} else {
 
-		if (accordionItemContent.style.maxHeight) {
-			accordionItemContent.style.maxHeight = null;
-			accordionItemContent.addEventListener('transitionend',
-				function () {
-					accordionItemContent.classList.remove('active');
-				}, {
-					once: true
-				});
-		} else {
+				let activeSpoilerTitle = serviceSpoilerWrap.querySelector('.content_title.active');
+				if (activeSpoilerTitle) {
+					activeSpoilerTitle.classList.remove('active');
+					accRemove(activeSpoilerTitle.nextElementSibling);
+				};
 
-			for (let j = 0; j < acc.length; j++) {
-				acc[j].classList.remove("active");
-				acc[j].nextElementSibling.style.maxHeight = null;
-			}
-			// this.classList.toggle("active");
-			accordionItemContent.classList.add('active');
-			accordionItemContent.style.maxHeight = accordionItemContent.scrollHeight + "px";
-		}
-		this.classList.toggle("active");
+				accordionItemContent.classList.add('active');
+				accordionItemContent.style.maxHeight = accordionItemContent.scrollHeight + "px"; //scrollHeight
+
+			};
+			e.target.classList.toggle('active');
+
+		};
+
 	});
-}
+};
 
 
-// spoiler - accordion end ============================================================================ 
+function accRemove(e) {
+	e.style.maxHeight = null;
+	e.addEventListener('transitionend',
+		function () {
+			e.classList.remove('active');
+		}, {
+			once: true
+		});
+};
 
-
-
-
-
-
-
-
-// spoiler end ===========================================================================;
+// spoiler - accordion end ============================================================================ ;
 	// pc or touch class start =========================================================
 // const isMobile = {
 // 	Android: function () {
@@ -10321,243 +10290,129 @@ for (let i = 0; i < acc.length; i++) {
 
 
 
-// //Burger Menu Anfang========================================================================
+//Burger Menu Anfang========================================================================
 const menuIcon = document.querySelector('.menu__icon');
 const menuBody = document.querySelector('.menu__body');
 if (menuIcon) {
-	menuIcon.addEventListener('click', function (e) {
+	menuIcon.addEventListener('click', function () {
 		document.body.classList.toggle('lock');
 		menuIcon.classList.toggle('active');
 		menuBody.classList.toggle('active');
 	})
 }
-// //Burger Menu Ende ==============================================================================
-// Skrollen bei klick 'start'====================================
+//Burger Menu Ende ==============================================================================
+// Skrollen zum Block bei klick 'start'====================================
 
-const menuLinks = document.querySelectorAll('.menu__link[data-goto]');
-if (menuLinks.length > 0) {
-
-	menuLinks.forEach(menuLink => {
-		menuLink.addEventListener("click", onMenuLinkClick);
-	});
-
-	function onMenuLinkClick(e) {
-		const menuLink = e.target.parentElement;
-		if (menuLink.dataset.goto && document.querySelector(menuLink.dataset.goto)) {
-			const gotoBlock = document.querySelector(menuLink.dataset.goto);
-			const gotoBlockValue = gotoBlock.getBoundingClientRect().top + scrollY - navHeight;
-
-			menuLinks.forEach(link => link.classList.remove('active'));
-			this.classList.add('active');
-
-			if (menuIcon.classList.contains("active")) {
-				document.body.classList.remove('lock');
-				menuIcon.classList.remove('active');
-				menuBody.classList.remove('active');
-			}
-
-			clicked = true;
-			setTimeout(() => {
-				clicked = false;
-			}, 1000);
-
-			window.scrollTo({
-				top: gotoBlockValue,
-				behavior: "smooth"
-			});
+const menuList = document.querySelector('.menu__list');
+let clicked = false
+if (menuList) {
+	menuList.addEventListener("click", function (e) {
+		if (e.target.classList.contains('inner__link')) {
+			const menuLink = e.target.parentElement;
 			e.preventDefault();
+
+			if (menuLink.hash && document.querySelector(menuLink.hash)) {
+
+				menuList.querySelector('.active').classList.remove('active');
+				menuLink.classList.add('active');
+
+
+				if (menuIcon.classList.contains("active")) {
+					document.body.classList.remove('lock');
+					menuIcon.classList.remove('active');
+					menuBody.classList.remove('active');
+				}
+
+				clicked = true;
+				// clearTimeout(clickTimer);
+				setTimeout(() => {
+					clicked = false;
+				}, 1000);
+				scrollToTarget(menuLink.hash);
+
+			}
 		}
+
+	});
+};
+
+if (location.hash !== "") {
+	scrollToTarget(location.hash);
+}
+
+function scrollToTarget(id) {
+	let target = document.querySelector(id);
+	if (target !== null) {
+		const gotoTarget = target.offsetTop - (navHeight + 15); //gotoBlock.getBoundingClientRect().top + scrollY - navHeight;
+		window.scrollTo({
+			top: gotoTarget,
+			behavior: "smooth"
+		});
 	}
 }
 
-// Skrollen bei klick 'end'====================================
+// Skrollen zum Block bei klick 'end'=======================================================
 
+// Menu färben beim Scrollen start ==================================================
+const menuLinks = menuList.querySelectorAll('a.menu__link');
 
-const sections = document.querySelectorAll('.section');
-let clicked = false
-window.addEventListener('scroll', scrollDown);
-
-
-function scrollDown() {
+let scrollTimer;
+window.addEventListener('scroll', function () {
 	if (clicked) return;
+	clearTimeout(scrollTimer);
+	scrollTimer = setTimeout(onScroll, 100)
+});
 
 
-	let current = [];
-	sections.forEach(section => {
-		const sectonTop = section.offsetTop; //offsetTop  //getBoundingClientRect().top
-		const sectionHeight = section.offsetHeight; //offsetHeight   clientHeight
-		if (scrollY >= (sectonTop - screen.height / 2)) { //|| scrollY >= (sectonTop - document.offsetHeight / 2)
-			current = section.className.split(" ");
+function onScroll() {
+	// if (clicked) return;
+	for (let index = menuLinks.length - 1; index >= 0; index--) {
+		const menuLink = menuLinks[index];
+		const target = document.querySelector(menuLink.hash);
+		if ((window.pageYOffset + window.innerHeight / 2) > target.offsetTop) {
+			menuList.querySelector('.active').classList.remove('active');
+			menuLink.classList.add('active');
+			break;
 		}
-	})
-	// console.log(current);
-	menuLinks.forEach(menuLink => {
-		menuLink.classList.remove('active');
-		current.forEach(cS => {
-			// console.log(cS);
-			if (menuLink.dataset.goto == "." + cS) {
-				menuLink.classList.add('active');
-			}
-		})
-	})
-
+	}
 };
-	// // Class ACTIVE zum Menu anfügen Anfang====================================================
-
-	// // const aktuelleLokation = location.href;
-	// // const menuItems = document.querySelectorAll('.menu-item');
-
-	// // for (let i = 0; i < menuItems.length; i++) {
-	// // 	if (menuItems[i].firstChild.href === aktuelleLokation) {
-	// // 		menuItems[i].classList.add('active');
-	// // 	}
-	// // };
-	// const menuLinks = document.querySelectorAll('.menu__link');
-	// const subMenuLis = document.querySelectorAll('.sub_menu_link');
-	// const sections = document.querySelectorAll('.section');
-	// const subSections = document.querySelectorAll('.sub_section');
-
-	// // const subMenuLis = document.querySelectorAll('.sub_menu_link');
-
-	// let clicked = false;
-	// let subClicked = false;
-
-	// menuLinks.forEach(menuLink => {
-	// 	menuLink.addEventListener('click', function (e) {
-	// 		clicked = true;
-	// 		e.preventDefault();
-
-	// 		menuLinks.forEach(link => link.classList.remove('active'));
-	// 		this.classList.add('active');
-
-	// 		const href = this.getAttribute("href");
-	// 		const offsetTop = document.querySelector(href).offsetTop - navHeight - 20;
 
 
-	// 		setTimeout(() => {
-	// 			clicked = false;
-	// 		}, 1000);
+// Menu färben beim Scrollen end ==================================================;
 
-	// 		scroll({
-	// 			top: offsetTop,
-	// 			behavior: "smooth"
-	// 		});
+	//Form start =====================================================================================
 
-	// 	});
-	// })
+	let checkbox = document.querySelector('#form__checkbox');
+	// let btn = document.querySelector('.btn');
 
-	// subMenuLis.forEach(subMenuLi => {
-	// 	subMenuLi.addEventListener('click', function (e) {
-	// 		subClicked = true;
-	// 		e.preventDefault();
+	checkbox.addEventListener('change', function (event) {
 
-	// 		subMenuLis.forEach(m_item => m_item.classList.remove('active'));
-	// 		this.classList.add('active');
+		var currentTarget = event.currentTarget;
 
-	// 		const href = this.getAttribute("href");
-	// 		const offsetTop = document.querySelector(href).offsetTop - navHeight - 20;
+		if (currentTarget.checked) {
+			currentTarget.parentNode.querySelector('input[type="submit"]').removeAttribute('disabled');
+		} else {
+			currentTarget.parentNode.querySelector('input[type="submit"]').setAttribute('disabled', '');
+		}
+
+	});
+
+	//Form end =====================================================================================
+	// Google Maps start ==========================================================================================
 
 
-	// 		setTimeout(() => {
-	// 			subClicked = false;
-	// 		}, 500);
+	const mapsOverlay = document.querySelector('.maps__overlay')
 
-	// 		scroll({
-	// 			top: offsetTop,
-	// 			behavior: "smooth"
-	// 		});
-	// 	});
-	// })
+	mapsOverlay.addEventListener('click', function (e) {
+		if (e.target.tagName.toLowerCase() === 'a') return;
+		const mapsContent = document.querySelector('.maps__content')
+		mapsContent.innerHTML = "<iframe frameborder='0' style='border:0' allowfullscreen loading='lazy' src='https://www.google.com/maps/embed/v1/place?key=AIzaSyA8K3yG3PYHQ-BBsHPJ4G6jYK3O_PHcVqY&q=Bielegeld, Deutschland&zoom=11'></iframe>";
+		mapsOverlay.style.display = 'none';
+	})
 
 
 
-	// window.addEventListener('scroll', scrollDown);
 
+	// Google Maps end ==========================================================================================
 
-
-	// function scrollDown() {
-	// 	if (clicked) return;
-
-
-	// 	let current = '';
-	// 	sections.forEach(section => {
-	// 		const sectonTop = section.offsetTop;
-	// 		const sectionHeight = section.offsetHeight; //offsetHeight   clientHeight
-	// 		if (scrollY >= (sectonTop - sectionHeight / 3)) {
-	// 			current = section.getAttribute('id');
-	// 		}
-	// 	})
-
-	// 	menuLinks.forEach(menuLink => {
-	// 		menuLink.classList.remove('active');
-	// 		if (menuLink.getAttribute('href') == "#" + current) {
-	// 			menuLink.classList.add('active');
-	// 		}
-	// 	})
-
-	// }
-
-	// window.addEventListener('scroll', subScrollDown);
-
-	// function subScrollDown() {
-	// 	if (subClicked) return;
-	// 	let subCurrent = '';
-	// 	subSections.forEach(subSection => {
-	// 		const subSectonTop = subSection.offsetTop;
-	// 		const subSectionHeight = subSection.offsetHeight; //offsetHeight   clientHeight
-
-	// 		if (scrollY >= (subSectonTop + subSectionHeight - 200)) {
-	// 			subCurrent = '';
-	// 		} else if (scrollY >= (subSectonTop - subSectionHeight)) {
-	// 			subCurrent = subSection.getAttribute('id');
-	// 		}
-	// 	})
-	// 	subMenuLis.forEach(subMenuLi => {
-	// 		subMenuLi.classList.remove('active');
-	// 		if (subMenuLi.getAttribute('href') == "#" + subCurrent) {
-	// 			subMenuLi.classList.add('active');
-	// 		}
-	// 	})
-
-	// }
-
-
-	// // Class ACTIVE zum Menu anfügen Ende==========================================================
-	// // Link für scroll zu ID Anfang =============================================================================
-
-	// const links = document.querySelectorAll(".service_item a");
-
-	// for (const link of links) {
-	// 	link.addEventListener("click", clickHandler);
-	// }
-
-	// function clickHandler(e) {
-
-	// 	e.preventDefault();
-	// 	const navHeight = header_nav.offsetHeight;
-	// 	const href = this.getAttribute("href");
-	// 	const offsetTop = document.querySelector(href).offsetTop - navHeight - 20;
-
-	// 	scroll({
-	// 		top: offsetTop,
-	// 		behavior: "smooth"
-	// 	});
-
-	// }
-
-	// // Link zur ID Ende
-
-
-	// // //Burger Menu Anfang========================================================================
-	// const menuIcon = document.querySelector('.menu__icon');
-	// const menuBody = document.querySelector('.menu__body');
-	// if (menuIcon) {
-	// 	menuIcon.addEventListener('click', function (e) {
-	// 		document.body.classList.toggle('lock');
-	// 		menuIcon.classList.toggle('active');
-	// 		menuBody.classList.toggle('active');
-	// 	})
-	// }
-	// // //Burger Menu Ende ==============================================================================
-
-}; //window.onload ende
+});
