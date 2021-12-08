@@ -10205,43 +10205,86 @@ const serviceSpoilerWrap = document.querySelector(".service__spoiler_wrap");
 if (serviceSpoilerWrap) {
 	serviceSpoilerWrap.addEventListener("click", function (e) {
 		if (e.target.classList.contains('content_title')) {
-			e.preventDefault();
+			toggleSpoiler(e.target);
+		};
+	});
 
-			const accordionItemContent = e.target.nextElementSibling;
+	function toggleSpoiler(e) {
+		const accordionItemContent = e.nextElementSibling;
 
-			if (e.target.classList.contains('active')) {
-				accRemove(accordionItemContent);
-			} else {
+		if (e.classList.contains('active')) {
+			accRemove(accordionItemContent);
+		} else {
 
-				let activeSpoilerTitle = serviceSpoilerWrap.querySelector('.content_title.active');
-				if (activeSpoilerTitle) {
-					activeSpoilerTitle.classList.remove('active');
-					accRemove(activeSpoilerTitle.nextElementSibling);
-				};
-
-				accordionItemContent.classList.add('active');
-				accordionItemContent.style.maxHeight = accordionItemContent.scrollHeight + "px"; //scrollHeight
-
+			let activeSpoilerTitle = serviceSpoilerWrap.querySelector('.content_title.active');
+			if (activeSpoilerTitle) {
+				activeSpoilerTitle.classList.remove('active');
+				accRemove(activeSpoilerTitle.nextElementSibling);
 			};
-			e.target.classList.toggle('active');
+
+			accordionItemContent.classList.add('active');
+			accordionItemContent.style.maxHeight = accordionItemContent.scrollHeight + "px"; //scrollHeight
 
 		};
+		e.classList.toggle('active');
+	};
 
+	function accRemove(e) {
+		e.style.maxHeight = null;
+		e.addEventListener('transitionend',
+			function () {
+				e.classList.remove('active');
+			}, {
+				once: true
+			});
+	};
+};
+
+// function raf(fn) {
+// 	window.requestAnimationFrame(function () {
+// 		window.requestAnimationFrame(function () {
+// 			fn();
+// 		})
+// 	})
+
+// };
+
+
+
+
+// spoiler - accordion end ============================================================================ 
+
+// address height chenge start ============================================================================ 
+const addressTitle = document.querySelector(".address_title");
+
+if (addressTitle) {
+	addressTitle.addEventListener("click", function () {
+		const addressContent = addressTitle.nextElementSibling;
+		if (addressContent) {
+			if (addressContent.classList.contains('active')) {
+				accRemove(addressContent);
+			} else {
+				addressContent.classList.add('active');
+				addressContent.style.maxHeight = addressContent.scrollHeight + "px"; //scrollHeight
+			};
+			addressTitle.classList.toggle('active');
+		};
 	});
+
+	function accRemove(e) {
+		e.style.maxHeight = null;
+		e.addEventListener('transitionend',
+			function () {
+				e.classList.remove('active');
+			}, {
+				once: true
+			});
+	};
 };
 
 
-function accRemove(e) {
-	e.style.maxHeight = null;
-	e.addEventListener('transitionend',
-		function () {
-			e.classList.remove('active');
-		}, {
-			once: true
-		});
-};
 
-// spoiler - accordion end ============================================================================ ;
+// address height chenge end ============================================================================ ;
 	// pc or touch class start =========================================================
 // const isMobile = {
 // 	Android: function () {
@@ -10416,3 +10459,9 @@ function onScroll() {
 	// Google Maps end ==========================================================================================
 
 });
+
+class AGAnimate {
+	constructor(selectorWrap, selectorClick, selectorContent) {
+
+	}
+}

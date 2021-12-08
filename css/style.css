@@ -1309,9 +1309,9 @@ section .section_title h2::after {
   padding: 5px 35px 5px 5px;
   position: relative;
   cursor: pointer;
-  -webkit-transition: all .25s ease;
-  -o-transition: all .25s ease;
-  transition: all .25s ease;
+  -webkit-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
 }
 
 .content_title.active {
@@ -1337,9 +1337,9 @@ section .section_title h2::after {
   right: 16px;
   height: 15px;
   width: 2px;
-  -webkit-transition: all ease 0.2s;
-  -o-transition: all ease 0.2s;
-  transition: all ease 0.2s;
+  -webkit-transition: all ease 0.3s;
+  -o-transition: all ease 0.3s;
+  transition: all ease 0.3s;
 }
 
 .content_title.active::after {
@@ -1349,14 +1349,11 @@ section .section_title h2::after {
 }
 
 .content_item {
-  -webkit-transition: height .25s ease;
-  -o-transition: height .25s ease;
-  transition: height .25s ease;
   overflow: hidden;
-  max-height: 0;
   -webkit-transition: max-height 0.3s ease-out;
   -o-transition: max-height 0.3s ease-out;
   transition: max-height 0.3s ease-out;
+  max-height: 0;
 }
 
 .content_item:not(.active) {
@@ -1365,6 +1362,49 @@ section .section_title h2::after {
 
 .content_text {
   padding: 5px;
+}
+
+.address_title {
+  display: none;
+  position: relative;
+  padding: 5px 35px 5px 5px;
+  -webkit-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.address_title.active {
+  background-color: rgba(48, 39, 123, 0.5);
+}
+
+.address_title::before,
+.address_title::after {
+  content: '';
+  position: absolute;
+  background: #30277B;
+}
+
+.address_title::before {
+  top: 15px;
+  right: 10px;
+  height: 2px;
+  width: 15px;
+}
+
+.address_title::after {
+  top: 9px;
+  right: 16px;
+  height: 15px;
+  width: 2px;
+  -webkit-transition: all ease 0.2s;
+  -o-transition: all ease 0.2s;
+  transition: all ease 0.2s;
+}
+
+.address_title.active::after {
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .contact_wrapper {
@@ -1799,9 +1839,36 @@ section .section_title h2::after {
     height: 25px;
   }
 
+  .address_title {
+    display: block;
+  }
+
   .contact_wrapper {
     -ms-flex-wrap: wrap-reverse;
     flex-wrap: wrap-reverse;
+  }
+
+  .adress_block {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    border: 1px solid black;
+  }
+
+  .address__inner {
+    overflow: hidden;
+    -webkit-transition: max-height 0.3s ease-out;
+    -o-transition: max-height 0.3s ease-out;
+    transition: max-height 0.3s ease-out;
+    max-height: 0;
+  }
+
+  .address__inner:not(.active) {
+    display: none;
+  }
+
+  .address__content {
+    padding: 5px;
   }
 
   .form_block h3 {
